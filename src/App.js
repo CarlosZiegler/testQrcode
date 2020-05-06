@@ -25,7 +25,7 @@ function App() {
     return (
       <div className="App">
         {links.map(link => <div className="container">
-          <QRCode size={300} className="Qrcode" value="https://github.com/carlosziegler" />
+          <QRCode size={300} className="Qrcode" value={link} />
           <p>{link}</p>
         </div>)}
       </div>
