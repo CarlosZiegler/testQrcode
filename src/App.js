@@ -1,24 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import QRCode from 'qrcode.react'
+import axios from 'axios'
 import './App.css';
 
+
+
+
 function App() {
+
+  async function getData() {
+    const response = await axios.get('https://carlosziegler.now.sh/api/qrcode')
+    return setLinks(response.data.link)
+  }
+
+  const [links, setLinks] = useState([])
+
+  useEffect(() => {
+    getData()
+  }, [])
+
+
+  if (links.length > 0) {
+
+    return (
+      <div className="App">
+        {links.map(link => <div className="container">
+          <QRCode size={300} className="Qrcode" value="https://github.com/carlosziegler" />
+          <p>{link}</p>
+        </div>)}
+      </div>
+    );
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
     </div>
   );
 }
